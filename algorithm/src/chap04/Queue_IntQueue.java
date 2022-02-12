@@ -66,26 +66,82 @@ public class Queue_IntQueue {
 		if(num<=0)
 			throw new EmptyIntQueueException(); //큐가 비어있음
 		return que[front];
+		
+		// 맨 앞의 데이터를 몰래 엿보는 메서드
+		// que[front] 의 값을 조사만 하고 데이터는 꺼내지않으므로 front, rear, num의 값은 그대로 
+		// 큐가 비어있으면 예외를 던진다. 
 	}
 	
 	//큐에서 x를 검색하여 인덱스(찾지 못하면 -1)를 반환
-	public static void main(String[] args) {
+	public int indexOf(int x) {
 		
+		for (int i = 0; i < num; i++) {
+			int idx = (i + front) % max;
+			if(que[idx] == x)
+				return idx;
+		
+		}
+		return -1;
+		//큐의 배열 x와 같은 데이터가 저장되어 있는 위치를 알아내는 메서드
+		// 스캔의 시작은 front (큐의 첫요소 )
+		// 스캔할 때 index 계산은 (i + front) % max 
+		// 검색 성공시 찾는 요소의 인덱스 반환
+		// 검색 실패시 -1 반환
 
 	}
+
 	
 	//큐를 비움
-	
+	public void clear() {
+		
+		num= front = rear = 0;
+		//모든 데이터를 삭제하는 메서드
+	}
+
 	
 	// 큐의 용량을 반환
-	
+	public int capacity() {
+		 return max;
+		//큐의 최대 용량을 반환하는 메서드 (max)
+	}
 	
 	// 큐에 쌓여있는 데이터 수를 반환
-	
+	public int size(){
+		return num;
+		//현재 큐의 데이터 수를 반환하는 메서드 (num)
+	}
+
 	
 	// 큐가 비어있나요?
-	
-	
-	// 큐 안의 모든 데이터를 프런ㅌ -> 리어 순으로 출력
+	public boolean isEmpty() {
+		return num <=0;
+		// 큐가 비어있는지 판단하는 메서드 
+		// 비어있으면 true, 아니면 false 반환
+	}
 
+	// 큐가 가득 찼나요?
+	public boolean isFull() {
+		return num >= max; 
+		// 큐가 가득 찼는지 판단하는 메서드
+		// 가득 찼으면 true, 아니면 false
+	}
+	
+	// 큐 안의 모든 데이터를 프런트 -> 리어 순으로 출력
+	public void dump() {
+		//큐에 인큐된 모든 (num개) 데이터를 프런트에서 리어 순으로 출력하는 메서드
+		//큐가 비어있으면 큐가 비었습니다라고 메시지 표시 
+		if(num <= 0 ) {
+			System.out.println("큐가 비었습니다.");
+			
+		}else {
+			for (int i = 0; i < num; i++) {
+				System.out.print(que[(i+front)%max] + " ");
+			}
+			System.out.println();
+		}
+	}
+
+	public static void main(String[] args) {
+
+	}
 }
